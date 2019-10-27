@@ -37,14 +37,19 @@ export default class Todolist extends Component {
     }
     changeItem = (index) => {
         let todoList = [...this.state.todoList];
-        todoList[index].done = !todoList[index].done;
+        if(todoList[index].done === false){
+            todoList[index].done=true;
+        }
+        else{
+            todoList[index].done=false;
+        }
         this.setState({
             todoList:todoList
         })
     }
     
     render() {
-        // 更新localStorage
+        // 先更新localStorage
         localStorage.setItem('todo',JSON.stringify(this.state.todoList));
         //设置一个变量接收正在进行的个数:
         let doing = 0;
@@ -52,7 +57,7 @@ export default class Todolist extends Component {
         let done = 0;
         //获取当前状态下，正在进行和已经完成的个数：通过遍历todoList，访问todoList中每个元素的done值来进行计数
         this.state.todoList.forEach(item => {
-            if(item.done === false){
+            if(item.done == false){
                 doing = doing + 1;
             }
             else {
